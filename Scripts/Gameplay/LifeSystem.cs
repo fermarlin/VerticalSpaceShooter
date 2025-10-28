@@ -2,24 +2,58 @@ using UnityEngine;
 
 public class LifeSystem : MonoBehaviour
 {
+    [Header("Health Parameters")]
     [SerializeField]
     private int maxHealth = 2;
+    [SerializeField] 
+    private ParticleSystem deathParticle;
+    [SerializeField] 
+    private Animator shipAnimator;
 
+    [Header("Power UP Parameters")]
     [SerializeField]
     [Range(0, 1)]
     private float dropProb = .5f;
-    [SerializeField] 
-    private ParticleSystem deathParticle;
     [SerializeField]
-    private GameObject poweUpPrefab;
+    private GameObject[] poweUpPrefab;
 
-    private int currentHealth;
+    [Header("Barrier Parametres")]
+    [SerializeField]
+    private bool canHaveBarrier = false;
+    [SerializeField]
+    private int barriermaxHealth = 2;
+    [SerializeField]
+    private Animator barrier;
+    
+    [Header("Game Orchestrator Parametres")]
+    [SerializeField]
+    private bool sendInfoToGO = false;
+
+    private bool activeBarrier = false;
+    public int currentbarrierHealth = 0;
+    public int currentHealth;
 
     private void Awake(){
         currentHealth = maxHealth;
     }
 
     public void ChangeHealth(int value){
+
+        if(activeBarrier&&value<0){
+            currentbarrierHealth--;
+
+            if(currentbarrierHealth<=0) {
+                activeBarrier = false;
+                barrier.SetBool("BarrierUp", false);
+                if(sendInfoToGO){
+                 if(GameOrchestrator.instance){
+                    GameOrchestrator.instance.Barrier(false);
+                 }
+                }
+            }
+            return;
+        }
+
         currentHealth+=value;
 
         if (currentHealth>maxHealth){
@@ -30,16 +64,34 @@ public class LifeSystem : MonoBehaviour
 
         if(currentHealth<=0){
             bool randomPackGen = Random.value > dropProb;
-
-            if (randomPackGen&&poweUpPrefab!=null)
+            
+            if (randomPackGen&&poweUpPrefab.Length>0)
             {
-                Instantiate(poweUpPrefab, transform.position, transform.rotation);
+                int randomPowerUp = Random.Range(0, poweUpPrefab.Length);
+                Instantiate(poweUpPrefab[randomPowerUp], transform.position, transform.rotation);
             }
             if(deathParticle!=null){
                 deathParticle.transform.parent=null;
                 deathParticle.Play();
             }
             Destroy(gameObject);
+        }
+
+        if(shipAnimator!=null&&value<0){
+            shipAnimator.SetTrigger("Damage");
+        }
+    }
+
+    public void AddBarrier(){
+        if(canHaveBarrier){
+            activeBarrier=true;
+            barrier.SetBool("BarrierUp", true);
+            currentbarrierHealth = barriermaxHealth;
+            if(sendInfoToGO){
+                 if(GameOrchestrator.instance){
+                    GameOrchestrator.instance.Barrier(true);
+                 }
+            }
         }
     }
 

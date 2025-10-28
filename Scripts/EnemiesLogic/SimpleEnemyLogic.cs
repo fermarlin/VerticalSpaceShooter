@@ -47,7 +47,7 @@ public class SimpleEnemyLogic : MonoBehaviour
             lifeObjetive.ChangeHealth(-1);
         }
 
-        if(other.CompareTag("Player")){
+        if(other.CompareTag("Player")||other.CompareTag("Enemy")){
             selfLife.AutoDestruction();
         }
 

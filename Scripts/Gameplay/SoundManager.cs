@@ -38,4 +38,10 @@ public class SoundManager : MonoBehaviour
         }
         return 0;
     }
+
+    public void AudioCancel(){
+        for(int i=0; i<audioSources.Length; i++){
+            audioSources[i].Stop();
+        }
+    } 
 }

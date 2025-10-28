@@ -50,9 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: -2
   lifeTime: 5
-  healthMod: 1
+  healthMod: 0
+  barrierMod: 1
   objetiveTag: Player
-  pickUpAudio: {fileID: 8300000, guid: ebce36f686776d44ab9a8f1b5511d9bf, type: 3}
+  collisionAudio: {fileID: 8300000, guid: 84722efe3ffe9454bac57dc39bec181b, type: 3}
   deathParticle: {fileID: 0}
 --- !u!65 &6762993041205189450
 BoxCollider:

@@ -39,7 +39,7 @@ public class SpaceshipMovement : MonoBehaviour
         controls.Spaceship.Disable();
     } 
 
-    void LateUpdate()
+    void Update()
     {
         if(!GameOrchestrator.instance.gamePaused){
             Vector3 pos = transform.position;

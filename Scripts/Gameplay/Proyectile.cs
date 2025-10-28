@@ -10,9 +10,11 @@ public class Proyectile : MonoBehaviour
     [SerializeField]
     private int healthMod = 0; 
     [SerializeField]
+    private bool barrierMod = false; 
+    [SerializeField]
     private string objetiveTag = null; 
     [SerializeField]
-    private AudioClip pickUpAudio; 
+    private AudioClip collisionAudio; 
     [SerializeField] 
     private ParticleSystem deathParticle;
 
@@ -45,10 +47,13 @@ public class Proyectile : MonoBehaviour
             if (lifeObjetive != null)
             {
                 lifeObjetive.ChangeHealth(healthMod);
+                if(barrierMod){
+                    lifeObjetive.AddBarrier();
+                }
             }
 
-            if(pickUpAudio!=null){
-                SoundManager.instance.PlayAudioClip(pickUpAudio);
+            if(collisionAudio!=null){
+                SoundManager.instance.PlayAudioClip(collisionAudio);
             }
 
             if(deathParticle!=null){

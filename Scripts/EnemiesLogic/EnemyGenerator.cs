@@ -3,15 +3,21 @@ using System.Collections;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab;
-    [SerializeField, Range(0f, 0.5f)] private float screenMargin = 0.05f;
-    [SerializeField, Min(0f)] private float cooldown = 2f;
+    [SerializeField] 
+    private GameObject enemyPrefab;
+    [SerializeField, Range(0f, 0.5f)] 
+    private float screenMargin = 0.05f;
+    [SerializeField, Min(0f)] 
+    private float cooldown = 2f;
+    [SerializeField, Min(1)] 
+    private int maxSimultaneousEnemies = 10;
 
     private Camera cam;
     private bool isRunning = true;
     private float depth;
     private float[] worldLimits = new float[2];
-    
+
+   
     void Start()
     {
         cam = Camera.main;
@@ -42,9 +48,13 @@ public class EnemyGenerator : MonoBehaviour
 
     private void SpawnEnemy(float minX, float maxX)
     {
+        if (this.transform.childCount < maxSimultaneousEnemies)
+        {
             float randomX = Random.Range(minX, maxX);
             Vector3 pos = new Vector3(randomX, transform.position.y, transform.position.z);
-            Instantiate(enemyPrefab, pos, transform.rotation);
+            GameObject newEnemy = Instantiate(enemyPrefab, pos, transform.rotation);
+            newEnemy.transform.SetParent(this.transform);
+        }
     }
 
     private void OnDisable()

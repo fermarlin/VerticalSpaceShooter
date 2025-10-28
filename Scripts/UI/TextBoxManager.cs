@@ -5,33 +5,28 @@ using System.Collections;
 
 public class TextBoxManager : MonoBehaviour
 {
-    [System.Serializable]
-    public struct TextPremade
-    {
-        public string textPremade;
-        public AudioClip audioC;
-    }
+    public static TextBoxManager instance;
+
     [SerializeField]
     private TextMeshProUGUI txtBox;
-    [SerializeField]
-    private TextPremade[] textsPremades;
+
     [SerializeField]
     private AudioClip DialUp;
 
     private Animator textBoxAnimator;
 
     private void Awake(){
+        if (instance == null)
+        {
+            instance = this;
+        }
         textBoxAnimator=GetComponent<Animator>();
     }
 
-    private void Start(){
-        int introMssg = Random.Range(0, textsPremades.Length-1);
-        StartCoroutine(ChangeTextCoroutine(introMssg));
-    }
-
-    private IEnumerator ChangeTextCoroutine(int index)
+    public IEnumerator ChangeTextCoroutine(string text, AudioClip audioText)
     {
-        txtBox.text = textsPremades[index].textPremade;
+        SoundManager.instance.AudioCancel();
+        txtBox.text = text;
         textBoxAnimator.SetBool("MssgActive", true);
 
         if (DialUp != null)
@@ -40,10 +35,10 @@ public class TextBoxManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        if (textsPremades[index].audioC != null)
+        if (audioText != null)
         {
-            SoundManager.instance.PlayAudioClipDefaultPitch(textsPremades[index].audioC);
-            yield return new WaitForSeconds(textsPremades[index].audioC.length);
+            SoundManager.instance.PlayAudioClipDefaultPitch(audioText);
+            yield return new WaitForSeconds(audioText.length);
         }
         textBoxAnimator.SetBool("MssgActive", false);
     }

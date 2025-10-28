@@ -117,6 +117,15 @@ public partial class @SpaceshipInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MegaLaser"",
+                    ""type"": ""Button"",
+                    ""id"": ""8c5d9335-4a4c-4726-9cd3-9793d9154e61"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -240,6 +249,28 @@ public partial class @SpaceshipInput: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c2ee8727-19ec-47ed-8357-dc7935097ee9"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MegaLaser"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""008d51ac-fb38-401b-ba6e-72ae9ef246de"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MegaLaser"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -273,6 +304,7 @@ public partial class @SpaceshipInput: IInputActionCollection2, IDisposable
         m_Spaceship_Movement = m_Spaceship.FindAction("Movement", throwIfNotFound: true);
         m_Spaceship_Shoot = m_Spaceship.FindAction("Shoot", throwIfNotFound: true);
         m_Spaceship_Pause = m_Spaceship.FindAction("Pause", throwIfNotFound: true);
+        m_Spaceship_MegaLaser = m_Spaceship.FindAction("MegaLaser", throwIfNotFound: true);
     }
 
     ~@SpaceshipInput()
@@ -356,6 +388,7 @@ public partial class @SpaceshipInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Spaceship_Movement;
     private readonly InputAction m_Spaceship_Shoot;
     private readonly InputAction m_Spaceship_Pause;
+    private readonly InputAction m_Spaceship_MegaLaser;
     /// <summary>
     /// Provides access to input actions defined in input action map "Spaceship".
     /// </summary>
@@ -379,6 +412,10 @@ public partial class @SpaceshipInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Spaceship/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_Spaceship_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "Spaceship/MegaLaser".
+        /// </summary>
+        public InputAction @MegaLaser => m_Wrapper.m_Spaceship_MegaLaser;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -414,6 +451,9 @@ public partial class @SpaceshipInput: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @MegaLaser.started += instance.OnMegaLaser;
+            @MegaLaser.performed += instance.OnMegaLaser;
+            @MegaLaser.canceled += instance.OnMegaLaser;
         }
 
         /// <summary>
@@ -434,6 +474,9 @@ public partial class @SpaceshipInput: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @MegaLaser.started -= instance.OnMegaLaser;
+            @MegaLaser.performed -= instance.OnMegaLaser;
+            @MegaLaser.canceled -= instance.OnMegaLaser;
         }
 
         /// <summary>
@@ -508,5 +551,12 @@ public partial class @SpaceshipInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MegaLaser" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMegaLaser(InputAction.CallbackContext context);
     }
 }

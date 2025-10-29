@@ -10,10 +10,11 @@ public class SpaceshipShoot : MonoBehaviour
     private float fireRate = 0.3f;
     [SerializeField]
     private AudioClip shootAudio; 
+    [SerializeField]
+    private MegaLaser megaLaser; 
 
     private SpaceshipInput controls;
     private bool isShooting=false;
-    private bool canShoot = true;
 
     void Awake() {
        controls = new SpaceshipInput(); 
@@ -33,22 +34,31 @@ public class SpaceshipShoot : MonoBehaviour
 
     private IEnumerator ShootLoop()
     {
-        while (isShooting && canShoot)
+        while (isShooting)
         {
-            if(shootAudio!=null) SoundManager.instance.PlayAudioClip(shootAudio);
+            if (GameOrchestrator.instance.gamePaused || (megaLaser != null && megaLaser.UsingMLaser()))
+            {
+                yield return null;
+                continue;
+            }
+
+            if (shootAudio != null)
+                SoundManager.instance.PlayAudioClip(shootAudio);
+
             Instantiate(bulletPrefab, transform.position, transform.rotation);
-            canShoot = false;
+
             yield return new WaitForSeconds(fireRate);
-            canShoot = true;
         }
     }
 
     private void OnShootPerformed(InputAction.CallbackContext context)
     {
-        if(!GameOrchestrator.instance.gamePaused){
-            isShooting = true;
-            StartCoroutine(ShootLoop());
-        }
+        if (GameOrchestrator.instance.gamePaused) return;
+        if (megaLaser != null && megaLaser.UsingMLaser()) return;
+        if (isShooting) return; 
+
+        isShooting = true;
+        StartCoroutine(ShootLoop());
     }
 
     private void OnShootCanceled(InputAction.CallbackContext context)

@@ -5583,12 +5583,12 @@ MonoBehaviour:
   dropProb: 0.1
   poweUpPrefab:
   - {fileID: 8609594215203435909, guid: 670207e141601744b992de708afcb094, type: 3}
+  - {fileID: 3582612927396609493, guid: 80246320a261e5d429bf06a5bd983844, type: 3}
   - {fileID: 3752942310132002297, guid: 8edd62762df5853469e784c8b19122ea, type: 3}
   canHaveBarrier: 0
   barriermaxHealth: 2
   barrier: {fileID: 0}
   sendInfoToGO: 0
-  currentbarrierHealth: 0
   currentHealth: 0
 --- !u!114 &5622668422644493083
 MonoBehaviour:
@@ -5774,7 +5774,7 @@ Transform:
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 15.5, y: 15.5, z: 15.5}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7862328046043066280}
   - {fileID: 4083759299527534764}

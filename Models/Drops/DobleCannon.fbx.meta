@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fc654b5a0ec0fd74e83b5f3780edd2ae
+guid: 2d91956290b918b40a387af2757dafbb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: PlayerSpaceShipMat
-    second: {fileID: 2100000, guid: 694021568fe508c4fbdd7c4e05c58020, type: 2}
+      name: DoubleCannonMat
+    second: {fileID: 2100000, guid: 1d1186aabf51c834e8dcc9dff19b1616, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

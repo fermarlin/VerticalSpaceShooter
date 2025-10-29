@@ -375,6 +375,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4651213769358884284, guid: e4d9bc58bca76f4489b99dc9f647ab06, type: 3}
   fireRate: 0.3
   shootAudio: {fileID: 8300000, guid: 73df9bf423521e645bbd2bec202ad964, type: 3}
+  megaLaser: {fileID: 776435955}
 --- !u!1 &322221585
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,6 +448,16 @@ MonoBehaviour:
     audioC: {fileID: 8300000, guid: c8c77479c5f0aff4594c5fa66f4c3c74, type: 3}
   - textPremade: ALERT. DEFLECTOR SHIELDS OFFLINE. ALL DAMAGE IS NOW CRITICAL.
     audioC: {fileID: 8300000, guid: ba4b2ac1d4703374c81200252ccad99b, type: 3}
+  megaLaserActiveText:
+  - textPremade: 'MEGA LASER SYSTEM: FULLY CHARGED!'
+    audioC: {fileID: 8300000, guid: 6aa51e009f7e3164dbc7d3dd2526045d, type: 3}
+  - textPremade: MEGA LASER COOLDOWN COMPLETE. READY TO FIRE!
+    audioC: {fileID: 8300000, guid: 655e6127f67ff094c982eb7d0a9fcf73, type: 3}
+  - textPremade: 'PRIMARY BEAM CANNON: 100% POWER!'
+    audioC: {fileID: 8300000, guid: 495380b75f5d9a1469f3343b48cb8856, type: 3}
+  - textPremade: 'MEGA LASER SYSTEM: ONLINE AND AWAITING COMMAND!'
+    audioC: {fileID: 8300000, guid: 447365a2314e3d64595a68b5f586e9a3, type: 3}
+  doubleWeaponActiveText: []
 --- !u!1 &368416627
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +520,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 2.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2144258639}
   m_Father: {fileID: 691448897}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &372062829
@@ -5757,7 +5769,7 @@ AudioSource:
   m_Resource: {fileID: 8300000, guid: 5a8e47023f0951446a95d28a8d844aec, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
-  m_Pitch: 1
+  m_Pitch: 1.25
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -6129,7 +6141,7 @@ GameObject:
   - component: {fileID: 776435955}
   m_Layer: 0
   m_Name: Hitbox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6164,7 +6176,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 2
@@ -6172,33 +6184,25 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &776435955
-Rigidbody:
+--- !u!114 &776435955
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776435952}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344bc53d1ec886d40bf1afc20b6f303d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserBar: {fileID: 2139313064}
+  laserBarImg: {fileID: 1733677924}
+  megalaserAn: {fileID: 691448898}
+  megalaserDuration: 3
+  megalaserCooldown: 20
+  megalaserDPS: -60
+  objetiveTag: Enemy
 --- !u!1 &798210233
 GameObject:
   m_ObjectHideFlags: 0
@@ -6965,6 +6969,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4651213769358884284, guid: e4d9bc58bca76f4489b99dc9f647ab06, type: 3}
   fireRate: 0.3
   shootAudio: {fileID: 8300000, guid: 73df9bf423521e645bbd2bec202ad964, type: 3}
+  megaLaser: {fileID: 776435955}
 --- !u!1 &1465345875
 GameObject:
   m_ObjectHideFlags: 0
@@ -22828,8 +22833,6 @@ MonoBehaviour:
   barriermaxHealth: 2
   barrier: {fileID: 1810800096}
   sendInfoToGO: 1
-  currentbarrierHealth: 0
-  currentHealth: 0
 --- !u!114 &1855919615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22853,13 +22856,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1855919610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 344bc53d1ec886d40bf1afc20b6f303d, type: 3}
+  m_Script: {fileID: 11500000, guid: 90493646646884e47bb958d5343ac945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserBar: {fileID: 2139313064}
-  laserBarImg: {fileID: 1733677924}
-  megalaserAn: {fileID: 691448898}
-  megalaserDuration: 5
+  rightWeapon: {fileID: 1933374551}
+  centralWeapon: {fileID: 246872070}
+  leftWeapon: {fileID: 1424956835}
+  playerAnimator: {fileID: 1110510090}
 --- !u!1 &1889334983
 GameObject:
   m_ObjectHideFlags: 0
@@ -23265,6 +23268,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4651213769358884284, guid: e4d9bc58bca76f4489b99dc9f647ab06, type: 3}
   fireRate: 0.3
   shootAudio: {fileID: 8300000, guid: 73df9bf423521e645bbd2bec202ad964, type: 3}
+  megaLaser: {fileID: 776435955}
 --- !u!1 &1963981094
 GameObject:
   m_ObjectHideFlags: 0
@@ -28300,8 +28304,137 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Padding: {x: 0, y: 0, z: 0, w: 651}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &2144258638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2144258639}
+  - component: {fileID: 2144258640}
+  m_Layer: 0
+  m_Name: LaserIdle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2144258639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144258638}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 372062828}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &2144258640
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144258638}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 47b858ec606832143a68a43017493083, type: 3}
+  m_Resource: {fileID: 8300000, guid: 47b858ec606832143a68a43017493083, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!33 &57031676385469205
 MeshFilter:
   m_ObjectHideFlags: 0

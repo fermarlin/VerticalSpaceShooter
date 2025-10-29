@@ -30,14 +30,14 @@ public class LifeSystem : MonoBehaviour
     private bool sendInfoToGO = false;
 
     private bool activeBarrier = false;
-    public int currentbarrierHealth = 0;
-    public int currentHealth;
-
+    private float currentbarrierHealth = 0;
+    private float currentHealth;
+    private bool isDead = false;
     private void Awake(){
         currentHealth = maxHealth;
     }
 
-    public void ChangeHealth(int value){
+    public void ChangeHealth(float value){
 
         if(activeBarrier&&value<0){
             currentbarrierHealth--;
@@ -62,7 +62,8 @@ public class LifeSystem : MonoBehaviour
             return;
         }
 
-        if(currentHealth<=0){
+        if(currentHealth<=0&&!isDead){
+            isDead=true;
             bool randomPackGen = Random.value > dropProb;
             
             if (randomPackGen&&poweUpPrefab.Length>0)

@@ -3,12 +3,8 @@ using System.Collections;
 
 public class GameOrchestrator : MonoBehaviour
 {
-    public static GameOrchestrator instance;
     public bool gamePaused = false;
-
-    private bool cinematic = false;
-    private bool hasGotAnyBarrier = false;
-
+    public static GameOrchestrator instance;
     [System.Serializable]
     public struct TextPremade
     {
@@ -16,13 +12,21 @@ public class GameOrchestrator : MonoBehaviour
         public AudioClip audioC;
     }
 
+
     [SerializeField]
     private TextPremade[] initTexts;
     [SerializeField]
     private TextPremade[] shieldUpText;
     [SerializeField]
     private TextPremade[] shieldDownText;
-    Coroutine textCoroutine;
+    [SerializeField]
+    private TextPremade[] megaLaserActiveText;
+    [SerializeField]
+    private TextPremade[] doubleWeaponActiveText;
+
+    private bool cinematic = false;
+    private bool hasGotAnyBarrier = false;
+    private Coroutine textCoroutine;
 
     private void Awake(){
 
@@ -68,6 +72,20 @@ public class GameOrchestrator : MonoBehaviour
             textCoroutine = StartCoroutine(TextBoxManager.instance.ChangeTextCoroutine(shieldDownText[shieldDownMssg].textPremade, shieldDownText[shieldDownMssg].audioC));
         }
     }
+
+    public void MegaLaserRecharged(){
+
+        if(textCoroutine!=null) {
+            StopCoroutine(textCoroutine);
+        }
+        int megaLaserMssg = Random.Range(0, megaLaserActiveText.Length);
+        textCoroutine = StartCoroutine(TextBoxManager.instance.ChangeTextCoroutine(megaLaserActiveText[megaLaserMssg].textPremade, megaLaserActiveText[megaLaserMssg].audioC));
+    }
+
+    public void DoubleWeapon(){
+
+    }
+
 
     public IEnumerator PausableWait(float seconds)
     {

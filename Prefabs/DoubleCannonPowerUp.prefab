@@ -4886,7 +4886,7 @@ MonoBehaviour:
   lifeTime: 5
   healthMod: 0
   objetiveTag: Player
-  collisionAudio: {fileID: 8300000, guid: 84722efe3ffe9454bac57dc39bec181b, type: 3}
+  collisionAudio: {fileID: 8300000, guid: 9655300d0f7d7494bb559778e03def58, type: 3}
   deathParticle: {fileID: 0}
 --- !u!114 &-7222239852007463373
 MonoBehaviour:

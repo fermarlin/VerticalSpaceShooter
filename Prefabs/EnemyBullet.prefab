@@ -4933,7 +4933,7 @@ GameObject:
   - component: {fileID: 838750860205094949}
   m_Layer: 0
   m_Name: EnemyBullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4973,7 +4973,7 @@ MonoBehaviour:
   lifeTime: 2
   healthMod: -1
   objetiveTag: Player
-  pickUpAudio: {fileID: 0}
+  collisionAudio: {fileID: 0}
   deathParticle: {fileID: 6328786513206269611}
 --- !u!65 &37174875113612656
 BoxCollider:
@@ -5310,7 +5310,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
